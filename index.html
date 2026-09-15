@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鹈鹕骑自行车</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .sky {
+            position: absolute;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(to bottom, #87CEEB 0%, #E0F6FF 100%);
+            top: 0;
+        }
+
+        .ground {
+            position: absolute;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(to bottom, #90EE90 0%, #228B22 100%);
+            bottom: 0;
+        }
+
+        .sun {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: #FFD700;
+            border-radius: 50%;
+            top: 30px;
+            right: 50px;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
+        }
+
+        .pelican-container {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: moveRight 8s linear infinite;
+        }
+
+        @keyframes moveRight {
+            0% {
+                left: -200px;
+            }
+            100% {
+                left: calc(100vw + 200px);
+            }
+        }
+
+        .pelican {
+            position: relative;
+            width: 120px;
+            height: 100px;
+        }
+
+        /* 鹈鹕身体 */
+        .pelican-body {
+            position: absolute;
+            width: 70px;
+            height: 50px;
+            background: #FFE4B5;
+            border-radius: 50% 50% 40% 40%;
+            left: 20px;
+            top: 30px;
+            border: 2px solid #DAA520;
+        }
+
+        /* 鹈鹕头部 */
+        .pelican-head {
+            position: absolute;
+            width: 45px;
+            height: 45px;
+            background: #FFE4B5;
+            border-radius: 50%;
+            left: 65px;
+            top: 15px;
+            border: 2px solid #DAA520;
+        }
+
+        /* 鹈鹕眼睛 */
+        .pelican-eye {
+            position: absolute;
+            width: 6px;
+            height: 8px;
+            background: #000;
+            border-radius: 50%;
+            top: 18px;
+            left: 78px;
+        }
+
+        /* 鹈鹕喙 */
+        .pelican-beak {
+            position: absolute;
+            width: 50px;
+            height: 15px;
+            background: #FFA500;
+            top: 35px;
+            left: 105px;
+            border-radius: 0 50% 50% 0;
+            border: 1px solid #FF8C00;
+        }
+
+        /* 鹈鹕腿 */
+        .pelican-leg {
+            position: absolute;
+            width: 3px;
+            height: 35px;
+            background: #FF8C00;
+            left: 40px;
+            top: 75px;
+            animation: legWalk 0.6s ease-in-out infinite;
+        }
+
+        .pelican-leg:nth-child(6) {
+            left: 55px;
+            animation-delay: 0.3s;
+        }
+
+        @keyframes legWalk {
+            0%, 100% {
+                transform: rotateZ(0deg);
+                transform-origin: top center;
+            }
+            50% {
+                transform: rotateZ(20deg);
+                transform-origin: top center;
+            }
+        }
+
+        /* 自行车 */
+        .bike {
+            position: absolute;
+            left: -30px;
+            top: 55px;
+            width: 150px;
+            height: 60px;
+        }
+
+        /* 自行车轮子 */
+        .wheel {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border: 3px solid #333;
+            border-radius: 50%;
+            top: 5px;
+        }
+
+        .wheel-front {
+            left: 80px;
+            animation: wheelSpin 0.3s linear infinite;
+        }
+
+        .wheel-back {
+            left: 0;
+            animation: wheelSpin 0.3s linear infinite;
+        }
+
+        @keyframes wheelSpin {
+            0% {
+                transform: rotateZ(0deg);
+            }
+            100% {
+                transform: rotateZ(360deg);
+            }
+        }
+
+        /* 轮辐 */
+        .wheel::before,
+        .wheel::after {
+            content: '';
+            position: absolute;
+            background: #333;
+        }
+
+        .wheel::before {
+            width: 2px;
+            height: 50px;
+            left: 24px;
+            top: 0;
+        }
+
+        .wheel::after {
+            width: 50px;
+            height: 2px;
+            left: 0;
+            top: 24px;
+        }
+
+        /* 自行车框架 */
+        .frame {
+            position: absolute;
+            left: 15px;
+            top: 20px;
+            width: 70px;
+            height: 35px;
+        }
+
+        .frame::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 40px;
+            background: #333;
+            left: 0;
+            top: -5px;
+            transform: rotate(-30deg);
+        }
+
+        .frame::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 35px;
+            background: #333;
+            left: 0;
+            top: 0;
+            transform: rotate(30deg);
+        }
+
+        /* 座位 */
+        .seat {
+            position: absolute;
+            width: 30px;
+            height: 4px;
+            background: #8B4513;
+            left: 25px;
+            top: 10px;
+            border-radius: 2px;
+        }
+
+        /* 把手 */
+        .handlebar {
+            position: absolute;
+            width: 20px;
+            height: 2px;
+            background: #333;
+            left: 55px;
+            top: 8px;
+            border-radius: 1px;
+        }
+
+        /* 云彩 */
+        .cloud {
+            position: absolute;
+            background: white;
+            border-radius: 100px;
+            opacity: 0.8;
+        }
+
+        .cloud1 {
+            width: 100px;
+            height: 40px;
+            top: 80px;
+            left: 10%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .cloud2 {
+            width: 120px;
+            height: 50px;
+            top: 150px;
+            right: 15%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(30px);
+            }
+        }
+
+        .info {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            z-index: 10;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sky">
+            <div class="sun"></div>
+            <div class="cloud cloud1"></div>
+            <div class="cloud cloud2"></div>
+        </div>
+        <div class="ground"></div>
+
+        <div class="pelican-container">
+            <div class="pelican">
+                <!-- 自行车 -->
+                <div class="bike">
+                    <div class="wheel wheel-back"></div>
+                    <div class="wheel wheel-front"></div>
+                    <div class="frame"></div>
+                    <div class="seat"></div>
+                    <div class="handlebar"></div>
+                </div>
+
+                <!-- 鹈鹕 -->
+                <div class="pelican-body"></div>
+                <div class="pelican-head"></div>
+                <div class="pelican-eye"></div>
+                <div class="pelican-beak"></div>
+                <div class="pelican-leg"></div>
+                <div class="pelican-leg"></div>
+            </div>
+        </div>
+
+        <div class="info">
+            🚴 欢迎来到鹈鹕骑自行车的世界！
+        </div>
+    </div>
+</body>
+</html>
